@@ -1,0 +1,43 @@
+{% extends "equipment_base.html" %}
+{% block headextras %}
+    <style type="text/css" media="screen">
+        #headshot img { float: right; width: 1in; height: 1in; }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% if soundfile %}
+        <embed src="/static/audio/{{ soundfile }}" autostart="true" loop="false" hidden="true"></embed>
+    {% endif %}
+    {% if person %}
+        <form action="." method="post" accept-charset="utf-8">
+            <input type="text" name="number" value="" id="number">
+            <input type="submit" value="Check out">
+        </form>
+
+            {% if recent_checkouts %}
+            <div class="infobox">
+                <h3>Recent checkouts</h3>
+                <ul>{% for item in recent_checkouts %}<li>{{ item }}</li>{% endfor %}</ul>
+            </div>
+            {% endif %}
+
+            <div id="headshot"><img src="{{ person.id_photo_url }}"></div>
+    {% else %}
+        <form action="/equipment/checkout/{% if due_timestamp %}{{ due_timestamp }}/{% endif %}" method="get" accept-charset="utf-8">
+            <p><input type="text" name="person_id" value="" id="person_id"></p>
+            <p><input type="submit" value="Begin checking out equipment"></p>
+        </form>
+    {% endif %}
+    <div class="controlbox">
+        {% if custom_due_datetime %}<strong>Due {{ custom_due_datetime|date:"l M j, P" }}</strong>{% endif %}
+        <form action="/equipment/checkout/{% if person %}{{ person.id_number }}/{% endif %}" method="get" accept-charset="utf-8">
+            <input type="text" name="due_date" value="{{ example_due_date|date:"Y-m-d" }}" id="due_date" size="11">
+            <input type="text" name="due_time" value="{{ example_due_time|time:"H:i" }}" id="due_time" size="6"><input type="submit" value="Change due date">
+        </form>
+        {% if person %}
+            <br>{# Dummy form used just to make buttons look alike #}
+            <form action="/equipment/checkout/{% if due_timestamp %}{{ due_timestamp }}/{% endif %}"><input type="submit" value="Choose different person"></form>
+        {% endif %}
+    </div>
+{% endblock %}

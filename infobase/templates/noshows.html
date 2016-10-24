@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block headextras %}
+<style type="text/css" media="screen">
+    body { text-align: left; color: #ddd;}
+    a { text-align: left; color: #ee3; text-decoration: none; }
+    h3 { border-top: 1px dotted #ccc; padding-top: .25em; }
+    h4 { margin: 5px 0 2px 20px; }
+    ul { margin: 0 0 0 20px; }
+</style>
+{% endblock %}
+
+{% block body %}
+<h1>No-Show Report ({% now "P" %})</h1>
+{% for date, mia_people, loa_people in noshows %}
+    {% if mia_people|length %}
+        <h3>No scans {{ date|date:"l, F jS" }} or later: {{ mia_people|length }}</h3>
+    {% else %}
+        <h3>{{ date|date:"l, F jS" }}: All Present</h3>
+    {% endif %}
+    {% regroup mia_people by section as mia_by_section %}
+    {% for section in mia_by_section %}
+        <h4>Section {{ section.grouper }}</h4>
+        <ul>
+        {% for person in section.list %}
+            <li><a href='{{ person.get_admin_url }}'>{{ person }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+    {% if loa_people|length %}
+    <h4>On Leave of Absence</h4>
+        <ul>
+        {% for person in loa_people  %}
+            <li><a href='{{ person.get_admin_url }}'>{{ person }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endfor %}
+{% endblock %}

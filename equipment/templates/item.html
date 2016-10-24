@@ -1,0 +1,23 @@
+{% extends "equipment_base.html" %}
+{% block body %}
+    {% if item %}
+        <h3>{{ item.get_status_display|upper }}</h3>
+        {% if item.checked_out_by %}
+            <p>Checked out by <strong>
+            <a href="/equipment/person/?person_id={{ item.checked_out_by.id_number }}">
+            {{ item.checked_out_by }}
+            </a></strong></p>
+        {% endif %}
+        <h3>History</h3>
+        <ul>
+        {% for event in history %}
+            <li>{{ event }}</li>
+        {% endfor %}        
+        </ul>
+    {% else %}
+        <form action="." method="get" accept-charset="utf-8">
+            <p><input type="text" name="number" value="" id="number"></p>
+            <p><input type="submit" value="Find"></p>
+        </form>
+    {% endif %}
+{% endblock %}

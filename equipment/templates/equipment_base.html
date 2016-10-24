@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Hallmark Equipment System {% if title %}: {{ title }}{% endif %}</title>
+	<style type="text/css" media="screen">
+	   body { background: #ffc; color: #000; margin: 2em; }
+	   a { color: #700; }
+	   h1 { background: #211; color: #ccc; padding: .25em .5em; }
+	   img.id-photo { border: 4px solid #aaa; }
+	   p.button a { border: 1px solid #700; background: #ccc; padding: .25em .5em; text-decoration: none; font-weight: bold; }
+	   p.button a:hover { background: #944; color: #dcc; }
+	   p.note { background: #eeb; padding: 1em 2em; font-style: italic; }
+	   p.error_message { background: #fcc; padding: 1em 2em; }
+	   .infobox { border: 1px solid #732; padding: .5em; background: #dda; color: #732; margin: .5em 0; }
+       .statusbox { border: 1px solid #121; color: #121; background: #aca; padding: .5em; margin: .5em auto; }
+	   .statusbox h1, .infobox h2, .infobox h3, .infobox ul { margin: .25em; }
+	   .controlbox { border: 1px solid #555; color: #555; background: #bbb; padding: .5em; margin: .5em auto; float: left; }
+	   .controlbox input { background: #ddd; }
+	</style>
+	<style type="text/css" media="print">
+	   body { background: #fff; color: #000; font-family: Georgia; }
+       .button { display: none; }
+	   img.id-photo { border: 1px solid #000; }
+	</style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    {% block headextras %}{% endblock %}
+</head>
+
+<body>
+    {% ifequal request.path "/equipment/"  %}
+    {% else %}
+        <p class="button"><a href="/equipment/">Home</a></p>    
+    {% endifequal %}
+    {% if title %}
+        <h1>{{ title }}</h1>
+    {% endif %}
+    {% if message %}
+    <div class="statusbox">
+        {{ message }}        
+    </div>
+    {% endif %}
+    {% if error_message %}
+        <p class="error_message">{{ error_message }}</p>
+    {% endif %}
+{% block body %}
+{% endblock %}
+<p class="button" style="text-align: right"><a href="/admin/logout/">Log Out</a></p>
+<script type="text/javascript" charset="utf-8">
+    jQuery("input:visible:enabled:first").focus();
+</script>
+</body>
+</html>

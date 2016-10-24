@@ -1,0 +1,11 @@
+{% ifchanged c.time_start %}</ul><h3>{{ c.time_start|time:"P" }}</h3><ul>{% endifchanged %}
+{% if c.is_first_hour %}
+    <li class="{% if c.is_over %}over{% endif %}">
+    <a href="{% ifequal mode "report" %}{{ c.get_report_url }}{% else %}{{ c.get_attendance_url }}{% endifequal %}"><span class="{% if c.is_over %}over{% else %}coursename{% endif %}">{{ c.course }}</span>, {{ c.room }}, Section {{ c.section }}</a>
+    {% if c.is_over and c.scan_set.count %}
+        &mdash; <a href="{{ c.get_report_url }}" style="color: #fff !important">View attendance report</a>
+    {% endif %}
+    </li>
+{% else %}
+    <li class="continued">{{ c.course }} (continued)</li>
+{% endif %}

@@ -1,0 +1,50 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% block content %}
+<style type="text/css" media="screen">
+.noPrint {
+    text-decoration: none;
+}	
+.printOnly {
+    display: none;
+}
+</style>
+<style type="text/css" media="print">
+/* ---- Printing ----------------------------------------- */	
+body {
+    font-size:70%;
+    width:8.5in
+    color:#000;
+}
+
+
+.noPrint, #header, .breadcrumbs {
+    display: none;
+}
+
+.printOnly {
+	display: block;
+}
+
+.page {
+    page-break-after: always;
+}
+
+</style>
+<h1 class="noPrint">Student Phone List</h1>
+
+
+{% for person in people %}
+{% ifchanged person.section %}
+</table>
+<table class="page">
+	<tr><th colspan="4"><h3>Section {{ person.section }}</h3></th></tr>
+    <tr><th>Name</th><th>Phone Number</th></tr>
+{% endifchanged %}
+<tr>
+	<td>{{ person }}</td>
+	<td>{{ person.primary_phone }}</td>
+</tr>
+{% endfor %}
+
+{% endblock %}

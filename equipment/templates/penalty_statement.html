@@ -1,0 +1,53 @@
+{% extends "equipment_base.html" %}
+{% block headextras %}
+<style type="text/css" media="print">
+    body { margin-top: 1in; }
+    .noprint { display: none; }
+</style>
+<style type="text/css" media="screen, print">
+    th { background: #ddc; }
+    td { border: 1px solid #888; padding: .5em 1em; }
+</style>
+{% endblock %}
+{% block body %}
+    {% if person %}
+        {% if penalties %}
+            {# This is the printable statment #}
+            <h1>Late Return Fee Statement:<br>{{ person }}</h1>
+            <h3>Phase {{ current_phase }}</h3>
+            <table><th>Items late</th><th>Date</th><th>Dollar credit fee</th>
+            {% for penalty in penalties %}
+                <tr><td>{{ penalty.items.all|join:"<br>" }}</td><td>{{ penalty.when_levied|date:"m/d/Y" }}</td><td>${{ penalty.amount }}</td></tr>
+            {% endfor %}
+            </table>
+            <h3>Total dollar credit fee: ${{ total }}</h3>
+        {% endif %}
+
+        <span class="noprint">
+        {% if overduesies %}
+            <h1>Overdue items: {{ person }}</h1>
+            <table>
+            {% for item in overduesies %}
+                <tr><td>{{ item }}</td><td>{{ item.due|date:"m-d H:i" }}</td></tr>
+            {% endfor %}
+            </table>
+            <form action="." method="post">
+            <input type="submit" value="Record penalty">
+            </form>
+        {% endif %}
+            
+        {% if new_penalty %}
+            <h2><a href="/equipment/statement/{{ person.id_number }}/">View statement</a></h2>
+        {% endif %}
+        </span> {# end noprint #}
+    {% endif %}
+
+    {% if people %}
+        <h1>Choose a student</h1>
+        <ul style="clear: both">
+            {% for person in people %}
+            <li><a href="/equipment/statement/{{ person.id_number }}/">{{ person }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

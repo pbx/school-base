@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block headextras %}
+    <style type="text/css" media="screen">
+        input#id_number { font-size: 150%; font-family: Monaco, monospace; text-align: center;}
+        div#last_scan {
+            background-color: #777;
+            width: 40%;
+            padding: 15px;
+            margin: 30px auto;
+        }
+        .warning { color: #d44;}
+        .message { color: #dd4;}
+        .highlight { color: #ffe; font-weight: bold;}
+        div#footer { font-size: 80%; margin-top: 50px; font-weight: normal; font-style: italic;}
+    </style>
+{% endblock %}
+{% block body %}
+    <h1>Log in</h1>
+    {% if form.errors %}
+    <p class="error">Please correct the errors below:</p>
+    {% endif %}
+    <form method="post" name="loginform" id="loginform" action="?next={{ next|default:"/" }}">
+    <dl>
+    <dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
+    <dd>{{ form.username }}</dd>
+    <dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
+    <dd>{{ form.password }}</dd>
+    <dt><input type="submit" value="Log in" /></dt>
+    </dl>
+    </form>
+    <script type="text/javascript" charset="utf-8">
+        document.loginform.username.focus();
+    </script>    
+{% endblock %}

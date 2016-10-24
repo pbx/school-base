@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block headextras %}
+    <style type="text/css" media="screen">
+        input#id_number { font-size: 150%; font-family: Monaco, monospace; text-align: center;}
+        div#last_scan {
+            background-color: #777;
+            width: 40%;
+            padding: 20px;
+            margin: 25px auto;
+            clear: both;
+            text-align: left;
+        }
+        .warning { color: #d44;}
+        .message { color: #dd4;}
+        .highlight { color: #ffe; font-weight: bold;}
+        .headshot { width: 100px; height: 100px; float: left; border: 1px solid #fff; margin-bottom: 10px; margin-right: 15px; }
+    </style>
+    <script type="text/javascript" src="/static/js/coolclock.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        /* Piggyback on CoolClock's addLoadEvent method;
+           Putting this focus() call in a simple body-onload breaks CoolClock,
+           and this is a better way to do things anyway. */
+        CoolClock.addLoadEvent(function(){ document.scanform.id_number.focus(); });
+    </script>
+{% endblock %}
+
+{% block body %}
+<form name="scanform" action="" method="POST" accept-charset="utf-8">
+<h1>Please scan your ID</h1>
+<input type="text" name="id_number" id="id_number" maxlength="10" />
+{% if warning %}<h3 class="warning">{{ warning }}</h3>{% endif %}
+{% if message %}<h3 class="message">{{ message }}</h3>{% endif %}
+</form>
+<div id="last_scan">
+    {% if last_scan.person.id_photo_url %}
+        <img src="{{ last_scan.person.id_photo_url }}" class="headshot" />
+    {% endif %}
+    <em>Last Scan</em><br><br>
+    <span class="highlight">{{ last_scan.person }}</span><br>
+    {{ last_scan.person.id_number }}<br>
+    <span class="highlight">{{ last_scan.timestamp|time:"h:i:s a" }}</span>
+    {% if last_scan.person.happy_birthday %}
+        <h3>Happy Birthday {{ last_scan.person.preferred_firstname }}!</h3>
+    {% endif %}
+    <br style="clear: both">
+</div>
+<div id="clock">
+    <canvas id="hallmarktime" class="CoolClock:hallmarkStyle:125"></canvas>
+</div>
+{% endblock %}

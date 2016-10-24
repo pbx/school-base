@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block headextras %}
+<style type="text/css">
+    body { text-align: left; }
+    a { text-decoration: none; color: #ff9; }
+    .person-area { padding: 1em; background: #ccc; color: #222; }
+    .person-area td { padding: 0 1em; }
+    .person-area img { width: 5em; height: 5em; padding: 0; }
+</style>
+{% endblock %}
+
+{% block body %}
+{% if people %}
+    <h1>{{ flag|title }} List</h1>
+    <div class="person-area"><table>
+    {% for person in people %}
+        <tr>
+            <td><img src="{{ person.id_photo_url }}" valign="middle"></td> 
+            <td><strong>{{ person }}</strong></td>
+            <td>{{ person.primary_phone }}</td>
+            <td>{{ person.email }}</td>
+            <td>Section&nbsp;{{ person.section }}</td>
+        </tr>
+    {% endfor %}
+    </table></div>
+{% else %}
+    <h1>Choose a set of flagged people to list</h1>
+    <ul>
+    {% for flag in flags %}
+        <li><a href="/flagged/{{ flag }}/">{{ flag }}</a> ({{ flag.person_set.count }})</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

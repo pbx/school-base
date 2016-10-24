@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block headextras %}
+<style type="text/css" media="screen">
+    body { text-align: left; color: #ddd;}
+    table a { text-align: left; color: #ee3; text-decoration: none; }
+    table { background: #111; padding: 10px; color: #ddd; }
+    tr { border-bottom: 1px solid white; }
+    th { text-align: left; }
+    td, th { padding: 10px; border-bottom: 1px dotted gray; }
+    th { color: #eea; }
+</style>
+{% endblock %}
+
+{% block body %}
+<h1>Most recent classes, by section ({% now "P" %})</h1>
+<table>
+    <tr>
+        <th>Section</th>
+        <th>Class</th>
+        <th>Room</th>
+        <th>Start time</th>
+        <th>Instructors</th>
+        <th>Present/Absent</th>
+    </tr>
+    {% for section, class in scheduled_classes %}
+    <tr>
+    <td>{{ section }}</td>
+    <td><a href="/report/{{ class.id }}/">{{ class.course.schedule_name }}</a></td>
+    <td>{{ class.room }}</td>
+    <td>{{ class.time_start|time:"P" }}</td>
+    <td>{{ class.instructor_list }}</td>
+    {% if class.attendance.0 %}
+        <td>{{ class.attendance.0|length }} / <span style="color: #fff">{{ class.attendance.1|length }}
+            {% if class.attendance.1 %}
+                <br><span style="color: #bbb; font-size: 60%">
+                {% for misser in class.attendance.1 %}{% if forloop.counter0 %}, {% endif %}{{ misser }}{% endfor %}
+                </span>
+            {% endif %}</td>
+    {% else %}
+        <td>-</td>
+    {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

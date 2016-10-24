@@ -1,0 +1,31 @@
+body 
+    {
+    font-family: Georgia; 
+    }
+
+@media screen 
+    {
+    body 
+        { 
+        color: #ccc;
+        background-color: #444;
+        text-align: center;
+        padding: 15px;
+        }
+    h1 
+        {
+        color: #fff;
+        font-weight: normal;
+        font-size: 2em;
+        }
+    }
+    
+@media print 
+    { 
+    body 
+        {
+        width: 8.5in;
+        color: #000;
+        background-color: #fff;
+        }
+    }

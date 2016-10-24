@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% block content %}
+
+    {% if schedule_days %}
+        {% include "partials/schedule_grid.html" %}
+    {% endif %}
+
+    {% if date_choices %}
+        <h2>Build schedule for what day?</h2>
+        <ul>
+        {% for date in date_choices %}
+            <li><a href="/admin/scheduler/{{ date|date:"Y-m-d" }}/">{{ date|date:"l M j" }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if submitted_form.errors %}
+        <div>{{ submitted_form.errors }}</div>
+    {% endif %}
+
+    {% if schedule_date %}
+        <h2>Building schedule for {{ schedule_date|date:"l M j" }}</h2>
+        {# form with: course, start-time, instructors, hours  #}
+        {% if builder_form %}
+            <form action="." method="post">
+            {{ builder_form.as_p }}   
+            <input type="submit" value="Schedule It">         
+            </form>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

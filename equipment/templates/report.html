@@ -1,0 +1,88 @@
+{% extends "equipment_base.html" %}
+{% block headextras %}
+    <style type="text/css">
+        h3 { margin: 0; }
+        table { border: 1pt solid #888; text-align: left;}
+        th { font-style: oblique; color: #444; padding: .25em .5em }
+        td { border-top: 1pt dotted #888; padding: .25em .5em }
+        h3 { margin-top: 1em; }
+        img.headshot { width: .5in; height: .5in; border: 2pt solid #666; margin-right: .5em; vertical-align: middle; }
+        .lilbutton { background: #333; color: #eee; font-size: 60%; text-decoration: none; margin-left: 1em; padding: 1pt 2pt; }
+    </style>
+    <style type="text/css" media="print">
+        .lilbutton { display: none; }
+    </style>
+{% endblock %}
+{% block body %}
+
+    {% if not report_kind %}
+        <p class="button"><a href="kits/">Kit report</a></p>
+        <p class="button"><a href="out-student/">Items checked out (students)</a></p>
+        <p class="button"><a href="overdue-student/">Overdue items (students)</a></p>
+        <p class="button"><a href="out-staff/">Items checked out (staff)</a></p>
+        <p class="button"><a href="overdue-staff/">Overdue items (staff)</a></p>
+        <p class="button"><a href="instock/">Items In Stock</a></p>
+        <p class="button"><a href="latepenalties/">Late Penalties</a></p>
+    {% else %}
+        <p class="button"><a href="/equipment/report/">Other reports</a></p>
+    {% endif %}
+
+    {% if kits %} {# -------------------------------------------------- #}
+        <table>
+        {% for kit in kits %}
+                <tr><th colspan="3"><h3><a href="/equipment/report/item/{{ kit.number }}/">{{ kit }}</a></h3></th></tr>
+                <tr><th>Item</th><th>Serial #</th><th>HIP #</th></tr>
+            {% for item in kit.contents.all %}
+                <tr><td>{{ item }}</td><td>{{ item.serialnumber }}</td><td>{{ item.hip_number }}</td></tr>
+            {% endfor %}
+        {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if item %} {# -------------------------------------------------- #}
+        {% if item.is_checked_out %}
+            <p>Checked out by <strong>{{ item.checked_out_by }}</strong>, due {{ item.due }}</p>
+        {% endif %}
+        {% if item.is_kit %}
+            <h3>Contents</h3>
+            <ul>{% for component in item.contents.all %}<li>{{ component }}</li>{% endfor %}</ul>
+            <p>{{ item.itemtype.note }}</p>
+        {% endif %}
+    {% endif %}
+
+    {% if items %} {# -------------------------------------------------- #}
+        <table>
+            <tr><th>Item</th><th>Due</th><th>Who</th><th>Contact</th></tr>
+        {% for item in items %}
+            <tr>
+            <td><strong>{{ item }}</strong><a class="lilbutton" href="{{ item.admin_url }}">admin</a></td>
+            <td>{{ item.due|date:"M-d H:i" }}{% if item.days_overdue %}<br><em><a href="/equipment/statement/{{ item.checked_out_by.id_number }}/">{{ item.days_overdue }} days late</a></em>{% endif %}</td>
+            <td><a href="{{ item.checked_out_by.whereis_url }}"><nobr><img src="{{ item.checked_out_by.id_photo_url }}" class="headshot"></a><strong>{{ item.checked_out_by }}</nobr></strong></td>
+            <td>{{ item.checked_out_by.primary_phone }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if itemtypes %} {# -------------------------------------------------- #}
+    <table>
+        <tr><th>Item type</th><th>How many in stock</th><th>How many out</th></tr>
+        {% for type in itemtypes %}
+            <tr><td>{{ type }}</td><td>{{ type.how_many_in_stock }}</td><td>{{ type.how_many_out }}</td></tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    {% if report_rows %}
+        <p class="button"><a href="{{ csv_link }}">CSV file</a></p>
+        <table>
+            <tr><th>First name</th><th>Last name</th><th>ID number</th><th>Date</th><th>Amount</th></tr>
+            {% for row in report_rows  %}
+                <tr>
+                    <td>{{ row.0 }}</td><td>{{ row.1 }}</td><td>{{ row.2 }}</td><td>{{ row.3 }}</td><td>{{ row.4 }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}

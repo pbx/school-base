@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block headextras %}
+    <style type="text/css" media="screen">
+    a { color: #ff4; text-decoration: none; }
+    #classbox { padding: 15px;}
+    #classbox h2 { margin-bottom: -8px;}
+    #personbox { padding: 15px; background: #222; width: 80%; margin: auto; }
+    #personbox h1 { margin: 0; }
+    .codegreen { color: #df6;}
+    .codered { color: #e03;}
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% if inclass %}
+        <div id="classbox">
+            <h2><a href="/report/{{ inclass.id }}/">{{ inclass.course.schedule_name }}, {{ inclass.time_start|time:"f A" }}, {{ inclass.room }}, Section {{ inclass.section }}</a></h2>
+            {% if not inclass.attendance.0 %}
+                <p class="codered">(Attendance data not yet recorded for this class)</p>
+            {% endif %}
+        </div>
+    {% endif %}
+    <div id="personbox">
+        <h1>{{ person }}</h1>
+        <h2>{{ message }}</h2>
+        {% if person.is_student %}
+            {% if inclass.attendance.0 %}
+            {# Above test prevents a false positive when attendance hasn't been taken and last scan was for an all-school event (None == None)  #}
+                {% ifequal last_scan.classmeeting inclass %}
+                    <h3 class="codegreen">Present</h3>
+                {% else %}
+                    <h3 class="codered">Absent</h3>
+                    <p class="codered">Last scan: {{ last_scan.timestamp|timesince }} ago
+                    <br><a href="{{ last_scan.classmeeting.get_report_url }}">({{ last_scan.classmeeting.course.schedule_name }})</a></p>
+                {% endifequal %}
+            {% else %}
+                <p>Last scan: {{ last_scan.timestamp|timesince }} ago
+            {% endif %}
+        {% endif %}
+        <p><img src="{{ person.id_photo_url }}"></p>
+    </div>
+    <p><a href="/faces/">Back to faces</a></p>
+{% endblock %}

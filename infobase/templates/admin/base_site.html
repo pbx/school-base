@@ -1,0 +1,30 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url django.contrib.admin.views.main.index %}">{% trans 'Home' %}</a>{% if title %} &rsaquo; {{ title|escape }}{% endif %}</div>{% endblock %} 
+{% block title %}{{ title|escape }} | {% trans 'Student Attendance and Information Server' %}{% endblock %}
+{% block extrastyle %}
+<style type="text/css" media="screen">
+    div#header { background-color: #933; }
+    .module caption { background-color: #882; }
+    #nav { 
+        float: right; 
+        margin: 5px; 
+        color: #999;
+        }
+    #nav a {
+        color: #fff;
+		text-decoration: none;
+        }
+</style>
+{% endblock %}
+{% block branding %}
+<h1 id="site-name">{% trans 'Student Attendance and Information Server' %}</h1>
+{% endblock %}
+
+{% block nav-global %}
+<div id="nav">
+    <a href="/admin/infobase/phonelist/">Student Phone List</a> &bull;
+    <a href="/equipment/">Equipment Tracker</a> &bull;
+    <a href="/admin/scheduler/">Schedule Builder</a>
+</div>
+{% endblock %}

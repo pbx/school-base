@@ -1,0 +1,22 @@
+{% extends "equipment_base.html" %}
+{% block body %}
+    {% if kit %}
+        <form action="." method="post" accept-charset="utf-8">
+            <p><input type="text" name="number" value="" id="number"></p>
+            <p><input type="submit" value="Add to kit"></p>
+            <p class="button"><a href="/equipment/buildkit/">Change kit</a></p>
+        </form>
+        <h3>Contents</h3>
+        <ul>
+            {% for item in kit.contents.all %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="note">To use this feature, the kit and the items you want to add to it must already have been entered.</p>
+        <form action="." method="get" accept-charset="utf-8">
+            <p><input type="text" name="kit_id" value="" id="kit_id"></p>
+            <p><input type="submit" value="Begin adding items to kit"></p>
+        </form>
+    {% endif %}
+{% endblock %}

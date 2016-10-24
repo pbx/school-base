@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block headextras %}
+<!-- refresh every five minutes in case of last-minute updates -->
+<meta http-equiv="refresh" content="300">
+<style type="text/css" media="screen">
+    body { text-align: left; color: #eee; }
+    ul li a { text-align: left; color: #fff;}
+    a { text-decoration: none; color: #ff9; }
+    li.over a { color: #bbb; }
+    li.continued { color: #bbb; font-style: italic }
+    li .coursename { color: #ee9; }
+    table { font-size: 85%; }
+    table a { color: #ff9; }
+    td, th { padding: 2px; width: 30px; background: #222; }
+    th { font-style: italic; font-weight: normal; }
+    td { text-align: right; }
+</style>
+{% endblock %}
+
+{% block body %}
+<p><a href="/accounts/logout/">&raquo; Log out</a></p>
+    {% if cal %}
+        {% include "partials/calendar.html" %}
+    {% endif %}
+
+    {% ifequal mode "report" %}
+        <p><a href='/status/'>&raquo; Live Status (classes in session now)</a></p>
+        <p><a href='/report/noshow/'>&raquo; The No-Show Report</a></p>
+        <p><a href='/faces/'>&raquo; Student faces and names</a></p>
+        <p><a href='/flagged/'>&raquo; Flagged students (e.g. night managers)</a></p>
+    {% endifequal %}
+
+    <h1>Classes for {{ listdate|date:"l, F jS" }}</h1>
+    <h2>Please choose a class</h2>
+    <ul>
+    {% for c in classmeetings %}
+        {% include "partials/class_list_line.html" %}
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+

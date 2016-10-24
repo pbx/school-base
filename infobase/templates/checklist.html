@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block headextras %}
+<style><!--
+body {
+	background-color:#fff;
+	}
+body,td,a,p,{font-family:arial,sans-serif}
+
+h1 {
+    color: #333;
+}
+
+h2 {
+    color: #555;
+}
+
+#attendancelist .studentname {
+	font-size:200%;
+	width:100%;
+	}
+
+#attendancelist td	{
+	border-top: 1px solid;
+	padding:4px;
+	border-color: #fff; 
+	}
+	
+#attendancelist .odd {
+	background: #fdc; 
+	color: #a22;
+	}
+#attendancelist .even {
+	background:#fed; 
+	color: #a22; 
+	}
+
+#attendancelist .evenchecked {
+	background: #6cf; 
+	color: #36c;
+	}
+
+#attendancelist .oddchecked {
+	background:#39f; 
+	color: #06c; 
+	}
+	
+#attendancelist td.studentcheckbox {
+	padding-left:10px;
+	}
+#attendancelist td.studentname {
+	padding-right:4px;
+	}
+#attendancelist .onleave td.studentname {
+    background: #ccc;
+    color: #666;
+    font-size: 100%;
+    }
+
+#attendancelist tr:hover td {
+	padding:1px 0 0 0;
+	border-top:4px #ff5856 solid;
+	border-bottom:4px #ff5856 solid;
+	}
+
+#attendancelist tr:hover td.studentcheckbox {
+	padding:1px 4px 0 6px;
+	border-left:4px #ff5856 solid;
+	}
+#attendancelist tr:hover td.studentname {
+	border-right:4px #ff5856 solid;
+	padding:1px 0 0 4px !important;
+	}
+
+#attendancelist img {
+    margin: -10px 0;
+    position: relative;
+    top: 5px;
+}
+
+#attendancelist img:hover {
+    /* some day we'll have a clever hover effect here that makes the face shot 100px tall without messing up the layout! */
+}
+
+input#Record {
+width: 150px;
+height 50px;
+font-size: 2em;
+}
+
+--></style>
+<script type="text/javascript">
+<!--
+function check(divID) 
+    {
+	checkedUser = document.getElementById(divID);
+	if (checkedUser.className.indexOf("checked") == -1) 
+        {
+        checkedUser.className = checkedUser.className + "checked";
+        document.getElementById("attendance")["present_" + divID].checked = true; 
+        } 
+	else 
+        {
+        checkedUser.className = checkedUser.className.replace("checked", "");
+        document.getElementById("attendance")["present_" + divID].checked = false; 
+        }
+    }
+
+var formSubmitted = false;
+var formUsed = false
+
+window.onbeforeunload = confirmExit;
+function confirmExit()
+    {
+    if ((! formSubmitted) && formUsed)
+    return "You must click the 'Record' button to record attendance.";
+    }
+
+// -->
+</script>
+{% endblock %}
+
+{% block body %}
+<form name="attendance" id="attendance" action="" method="post" onsubmit="formSubmitted=true;">
+<table width="100%"><tr>
+<td><h1>{{ theclass.course }}</h1>
+<h2>{{ theclass.date|date:"l, F jS" }}, {{ theclass.time_start|time:"P" }}<br>
+Section {{ theclass.section }}</h2></td>
+<td><h3>
+    {% for instructor in theclass.instructors.all %}
+        {{ instructor }}<br>
+    {% endfor %}
+</td>
+<td><input type="submit" name="Record" value="Record" id="Record"></td>
+</tr></table>
+<table name="attendancelist" id="attendancelist" cellspacing="0">
+{% for student in students  %}
+<tr id="{{ student.id }}" class="{% cycle odd,even %}{% if student.is_on_leave %} onleave{% endif %}" onclick="check({{ student.id }});formUsed=true">
+<td class="studentcheckbox"><input type="checkbox" id="present_{{ student.id }}" name="present_{{ student.id }}" value="1" onclick="formUsed=true"></td>
+<td class="studentimage"><img src="/static/faces/{{ student.id_number }}.jpg" height="65" width="65" alt="{{ student }}"></td>
+<td class="studentname">{% if student.is_on_leave %}LOA &mdash; {% endif %}{{ student }}</td>
+</tr>
+{% endfor %}
+
+</table>
+<input type="submit" name="Record" value="Record" id="Record">
+</form>
+
+<div id="footer">
+    {# Hallmark Institute of Photography Attendance System &mdash; {% now "F jS, Y" %} #}
+</div>
+{% endblock %}

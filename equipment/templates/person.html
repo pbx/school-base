@@ -1,0 +1,46 @@
+{% extends "equipment_base.html" %}
+{% block headextras %}
+<style>
+    th { background: #ddc; }
+    td { border: 1px solid #888; }
+    h3 { padding-top: .5em; border-top: 1px solid #555; }
+</style>
+{% endblock %}
+{% block body %}
+    {% if person %}
+        <p class="button"><a href="/equipment/checkout/{{ person.id_number }}/">Check out equipment to this person</a></p>
+        <div><img class="id-photo" src="{{ person.id_photo_url }}" width="150"></div>
+
+        {% if checked_out_items %}
+            <h3>Checked out items</h3>
+            <table cellpadding=6><tr><th>Item</th><th>Due</th></tr>
+            {% for item in checked_out_items %}
+                <tr><td>{{ item }}</td><td>{{ item.due }}</td></tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+        {% if transaction_history %}
+        <h3>Transaction history (last 50)</h3>
+            <ul>
+            {% for transaction in transaction_history|slice:":50" %}
+                <li>{{ transaction }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% else %}
+        <div class="controlbox">
+            <form action="." method="get" accept-charset="utf-8">
+                <input type="text" name="person_id" value="" id="person_id"><input type="submit" value="Find by ID number">
+            </form>
+        </div>
+        {% if people %}
+            {# List of names #}
+            <ul style="clear: both">
+                {% for person in people %}
+                <li><a href="/equipment/person/?person_id={{ person.id_number }}">{{ person }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

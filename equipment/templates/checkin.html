@@ -1,0 +1,14 @@
+{% extends "equipment_base.html" %}
+{% block body %}
+        <form action="." method="post" accept-charset="utf-8">
+            <p><input type="text" name="number" value="" id="number"></p>
+            <p><input type="submit" value="Check in"></p>
+        </form>
+        {% if recent_checkins %}
+        <div class="infobox">
+            <h3>Recent checkins</h3>
+            <ul>{% for item in recent_checkins %}<li>{{ item }}</li>{% endfor %}</ul>
+        </div>
+        {% endif %}
+
+{% endblock %}

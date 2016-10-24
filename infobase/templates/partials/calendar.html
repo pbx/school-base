@@ -1,0 +1,21 @@
+<table>
+    <tr><th colspan='7'>{{ cal.month }} {{ cal.year }}</th></tr>
+    <tr>{% for dayname in cal.daynames %}<th>{{ dayname }}</th>{% endfor %}</tr>
+{% for week in cal.weeks %}
+    <tr>
+    {% for day in week %} 
+        {# Ugly logic for displaying weekend days and today differently #}
+        {% ifequal forloop.counter 6  %}<td>{{ day }}</td>
+        {% else %}
+            {% ifequal forloop.counter 7  %}<td>{{ day }}</td>
+            {% else %}
+                {% ifequal day cal.today %}
+                    <td style='background: #000'><a href='{{ cal.url_base }}{{ day }}/'>{{ day }}</a></td>
+                {% else %}<td><a href='{{ cal.url_base }}{{ day }}/'>{{ day }}</a></td>
+                {% endifequal %}
+            {% endifequal %}
+        {% endifequal %}
+    {% endfor %}
+    </tr>
+{% endfor %}
+</table>

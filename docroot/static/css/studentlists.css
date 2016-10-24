@@ -1,0 +1,218 @@
+body { 
+    color: #333;
+    background-color: #fff;
+    font-family: 'Arial Narrow',Arial,sans-serif;
+    line-height:125%;
+    margin:0;
+    padding:0;
+    }
+
+p,td { font-size:0.7em; }
+
+h1 {
+    color: #333;
+    text-align:center;
+    font-weight:bold;
+    font-size:3.8em;
+    font-family: 'Myriad Pro', Verdana;
+    letter-spacing:-.05em;
+    padding-bottom:30px;
+    }
+h1.attendance {
+    font-size:2.0em;
+    padding:0 0 15px 0;
+    margin:20px 0 0 0;
+    }
+
+h1.facesheet {
+    text-align:right;
+    font-size:2.5em;
+    letter-spacing:1px;
+    padding:16px 100px 0 0;
+    margin-top:0;
+    }
+
+#facestickers h2 {
+    margin-top:0;
+    padding-top:0;
+    }
+
+br.clear {
+    clear:both;
+    }
+ 
+#instructorheading {
+    padding: 0 0 20px 0;
+    margin:0;
+    font-size:1.2em;
+    width:100%;
+    text-align:center;
+    }
+    
+.section {
+    float:left;
+    width:12%;
+    }
+
+.section th { 
+    text-align:center;
+    font-size:2em;
+    padding-bottom:5px;
+    font-family: 'Myriad Pro', Verdana; 
+    }
+
+.attendance th {
+    text-align:left;
+    }
+
+.attendance td {
+    text-align:left;
+    padding:0;
+    margin:0;
+    }
+
+.box {
+    border:1px solid #666;
+    width:8px;
+    height:8px;
+    padding:0;
+    margin: 0 1px -1px 0;
+    }
+
+.personbox {
+    padding:0;
+    margin:9px 9px 0 9px;
+    background:#000;
+    text-align:center;
+    float:left;
+    font-weight:bold;
+    color:#fff;
+    letter-spacing:1px;
+    }
+
+.nameplate {
+    float:left;
+    text-align:left;
+    padding-left:2px;
+    letter-spacing:-.025em;
+    font-size:.95em;
+    }
+    
+.sectionplate {
+    float:right;
+    text-align:center;
+    font-size:1.2em;
+    padding-right:6px;
+    vertical-align:middle;
+    color:#888;
+    }
+
+.stickerbox {
+    float:left;
+    width:2.625in;
+    height:1in;
+    text-align:left;
+    font-size:.825em;
+    line-height:100%;
+    padding:0;
+    margin:0 3px 0 0;
+    }
+
+.stickerbox img {
+    border: 2px solid #666;
+    float:left;
+    margin-right:3px;
+    }
+
+.underline {
+    border-bottom:1px solid #666;
+    }
+
+.inline {
+    display:inline-block;
+    }
+
+.gray {
+    color:#666;
+    }
+    
+.section .underline {
+    width:60%;
+    margin:auto;
+    padding-top:8px;
+    }
+
+div.sectionunderline {
+    width:100%;
+    }
+
+#instructorunderline, #classnameunderline { width:150px; margin-bottom:-2px; }
+
+.section td { 
+    width:50%;
+    vertical-align:top;
+    white-space:nowrap;
+    }        
+td.firstname { text-align:right; }    
+td.lastname { text-align:left; }
+td.date, td.time { font-size:1.1em; }
+div.footer { 
+    margin-top:20px;
+    text-align: center;
+    }
+
+.page .footer {
+    margin-top:0;
+    margin-bottom:0;
+    }
+
+.page { clear:both; }
+   
+/* ---- Printing ----------------------------------------- */   
+
+.noPrint {
+    text-decoration: none;
+}   
+.printOnly {
+    display: none;
+}
+
+@media print { 
+
+    body {
+        margin:0;
+        padding:0;
+        width:11in;
+        height:8in;
+        color:#999;
+    }
+    
+    body#facestickers {
+       width:8in;
+       height:10.35in;
+       font-size:94%;
+       margin-top:0.5in;
+    }
+    
+    #facestickers h3 {
+    }
+    
+    .page {
+        page-break-after:always;
+    }
+    
+    .stickerbox {
+        padding-left:0.275in;
+        width:2.35in;
+    }
+    
+    .personbox {
+        color:#fff;
+        background:#000;
+    }
+    
+    .page .footer {
+        position:relative;
+        top:6.75in;
+    }
+}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block headextras %}
+<style type="text/css" media="screen">
+    body { text-align: left;}
+    a { text-align: left; color: #fff;}
+    h2, h3 { color: #ffb;}
+</style>
+{% endblock %}
+
+{% block body %}
+{% if request.user.is_staff %}
+    <p><a style="color:#fff" href="/report/">Back to report list</a></p>
+{% endif %}
+<h1>{{ theclass.course }}</h1>
+<h2>{{ theclass.date|date:"l, F jS" }}, {{ theclass.time_start|time:"P" }}<br>
+Section {{ theclass.section }}</h2></td>
+<h3>Instructors: 
+    {% for instructor in theclass.instructors.all %}
+        {{ instructor }} {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</h3>
+
+{% if theclass.is_not_first_hour %}
+    <p>(This is not the first hour of this class. The spreadsheet data that this system reads has an entry for every hour of every class, but attendance data is not recorded for them. Contact <a href="mailto:paulb@hallmark.edu">Paul</a> if you got this screen when you didn't expect to.)</p>
+{% else %}
+    <h2>Present</h2>    
+    {% for p in present %}
+        {{ p }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    <h2>Absent</h2>
+    {% for a in absent %}
+        {{ a }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,3 @@
+#!/bin/bash
+hg push ssh://hallmark.edu//usr/local/hg/infoserver
+hg lastlog

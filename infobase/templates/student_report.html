@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block headextras %}
+    <style type="text/css" media="screen">
+        body { text-align: left; }
+        .alert { color: #f30; }
+        a { color: #ffe; }
+    </style>
+{% endblock %}
+{% block body %}
+{% if students %}
+    <ul>
+        {% for student in students %}
+            <li><a href="/report/student/{{ student.id }}/">{{ student }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h1>Status for {{ student }}</h1>
+    <ul>
+    {% for meeting in report %}
+    {% ifchanged %}<h3>{{ meeting.0.date }}</h3>{% endifchanged %}
+        <li><a href="{{ meeting.0.get_report_url }}">{{ meeting.0 }}</a>: <span class="{% ifequal meeting.1 "Absent" %}alert{% endifequal %}">{{ meeting.1 }}</span></li> 
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block headextras %}
+    <style type="text/css" media="screen">
+        body { text-align: left; margin: 30px; }
+        a { color: #ffe; }
+        img.headshot { width: 100px; height: 100px; margin: 20px 10px 0 10px; border: 1px solid black; }
+        .name { color: #fff; }
+        .buttons { font-size: 1.5em; }
+        .buttons a  { padding: 4px 8px; background: #222; text-decoration: none; }
+        .section, .letter { font-size: 1.25; opacity: 0.5; color: #aef; }
+    </style>
+    
+{% endblock %}
+{% block body %}
+<div class="buttons">
+<a href="/faces/">All</a> &bull; 
+{% for section_name in sections %}
+    <a href="/faces/{{ section_name }}/">{{ section_name }}</a>
+{% endfor %}
+&bull; <a href="/faces/employees/">Faculty and Staff</a>
+</div>
+
+<h1>Hallmark People {% if label %} : {{ label }}{% endif %}</h1>
+{% if location %}
+    <h4>{{ location.course }}, {{ location.room }}</h4>
+{% endif %}
+<hr>
+    <table><tr>
+    {% for person in people %}
+        <td align="center" valign="top">
+        <a href="{{ person.whereis_url }}"><img class="headshot" src="{{ person.id_photo_url }}"></a>
+        <br>
+        <p class="name">{{ person }}
+            {% if person.instructor_letter %}<br><span class="letter">{{ person.instructor_letter }}</span>{% endif %}
+            {% if person.is_student %}<br><span class="section">{{ person.section }}</span>{% endif %}
+            </p>
+        </td>
+        {% if forloop.counter|divisibleby:"8" %}
+</tr><tr>            
+        {% endif %}
+    {% endfor %}
+    </tr>
+</table>
+{% endblock %}

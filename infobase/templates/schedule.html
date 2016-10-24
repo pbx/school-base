@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block headextras %}
+<style type="text/css">
+    body { font-family: Georgia; font-size: 50%; text-align: left; }
+    td { padding: .1em 1em; vertical-align: bottom; }
+    .insession { background: yellow; }
+    .over { background: gray; }
+    .hour-label { font-weight: bold; line-height: 200%; }
+    .classname {  }
+</style>
+{% endblock %}
+
+{% comment %}
+    course = models.ForeignKey(Course)
+    date = models.DateField(blank=True, null=True)
+    time_start = models.TimeField(blank=True, null=True)
+    time_end = models.TimeField(blank=True, null=True)
+    instructors = models.ManyToManyField(Person, limit_choices_to={'kind': 2}, blank=True)
+    room = models.ForeignKey(Room, blank=True)
+    section = models.CharField(blank=True, max_length=1, choices=BACKDROP)
+    def lead_instructor(self):
+    def instructor_list(self):
+    def get_attendance_url(self):
+    def get_report_url(self):
+    def previous_hour_classmeeting(self):
+    def number_of_hours(self):
+    def is_not_first_hour(self):
+    def is_first_hour(self):
+    def first_hour_classmeeting(self):
+    def datetime_start(self):
+    def datetime_end(self):
+    def is_over(self):
+    def has_started(self):
+    def is_open(self):
+    def attendance(self):
+{% endcomment %}
+
+{% block body %}
+    <h2>{{ classmeetings.0.date|date:"l F jS Y" }}</h2>
+    <table>
+        {% for class in classmeetings %}
+            <tr>
+                <td class="hour-label">{% ifchanged %}{{ class.time_start|time:"g:i" }}{% endifchanged %}</td>
+                <td>{{ class.section }}</td><td class="classname">{{ class.course.schedule_name }}</td><td>{{ class.room.abbreviation }}</td>
+                <td>{% for i in class.instructors.all %}{{ i.instructor_letter }}{% if forloop.last %}{% else %}, {% endif %}{% endfor %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
