@@ -1,15 +1,13 @@
 # school-base
-Trade-school operations system for managing student information, class schedules, and equipment loan.
 
-This application was built for a photography/business
-school. Large-group classes had attendance kiosks where students would
-scan their ID barcodes to sign in.  The school had a lending library
-of photography equipment, which was managed through this system as
-well. Many of the features are specific to that school's operations
-(e.g. generating class schedules by importing spreadsheet data from
-the school admiinistration, or generating e-mailable attendance reports).
+Built for a photography/business school that is no longer in operation, this system managed student information, class schedules and attendance-taking, and equipment loan. It also was used to generate printed material like manual attendance lists and student face-sheets. It replaced and superseded several FileMaker databases, a proprietary MS Access app, many Excel spreadsheets, and lots of paper.
 
-_Note: I last worked on this system in 2010. To run it without porting
-to modern Django, you'll need a
-[version of Django about this old](https://github.com/django/django/tree/babfe78494028415b0e5f74ec2ca9b66506e8d34))._
+Large-group classes had attendance kiosks where students would scan their ID barcodes to sign in; these kiosks' web browsers were set to load the `/scan/` page and had USB barcode readers that entered the scanned ID numbers and send a carriage return to submit the form.
 
+For smaller classes, instructors took attendance manually on-screen, or via their phones.
+
+The school had a lending library of photography equipment, which was managed through this system as well, including grouping equipment into "kits", assessing late-return penalties, and so on. 
+
+To understand the code, read the doctests. I haven't worked on it in many years, I found them informative myself!
+
+_Note: This is a legacy system. Porting to modern Django shouldn't be too laborious, but if you want to try it out as-is you'll need [Django 0.97](https://github.com/django/django/tree/babfe78494028415b0e5f74ec2ca9b66506e8d34). Retro!_
