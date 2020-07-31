@@ -2,6 +2,8 @@
 
 Built for a photography/business school that is no longer in operation, this system managed student information, class schedules and attendance-taking, and equipment loan. It also was used to generate printed material like manual attendance lists and student face-sheets. It replaced and superseded several FileMaker databases, a proprietary MS Access app, many Excel spreadsheets, and lots of paper.
 
+![attendance scan screen](http://paulbissex.com/img/hallmark-scan.png)
+
 Large-group classes had attendance kiosks where students would scan their ID barcodes to sign in; these kiosks' web browsers were set to load the `/scan/` page and had USB barcode readers that entered the scanned ID numbers and send a carriage return to submit the form.
 
 For smaller classes, instructors took attendance manually on-screen, or via their phones.
