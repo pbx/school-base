@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Import schedule data from CSV files (prepared from weekly schedule Excel files)
-into the infoserver attandance database. Performs some data integrity checks.
+into the attandance database. Performs some data integrity checks.
 """
 import csv
 import datetime
@@ -9,8 +9,8 @@ import os
 import sys
 import time
 from optparse import OptionParser
-os.environ['DJANGO_SETTINGS_MODULE'] = "infoserver.settings"
-from infoserver.infobase.models import Course, Room, ClassMeeting, Person
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
+from infobase.models import Course, Room, ClassMeeting, Person
 
 FACULTY_KIND = Person.PEOPLE_TYPES_MAPPING["Faculty"]
 

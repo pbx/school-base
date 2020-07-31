@@ -1,10 +1,10 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
-from infoserver.infobase.models import Person
+from infobase.models import Person
 
 
 # Attendance system
-urlpatterns = patterns("infoserver.infobase.views",
+urlpatterns = patterns("infobase.views",
     (r"^scan/", "scan"),
     (r"^attendance/$", "attendance"),
     (r"^attendance/(?P<class_id>\d+)/$", "attendance"),
@@ -26,7 +26,7 @@ urlpatterns = patterns("infoserver.infobase.views",
 
 # Equipment system
 urlpatterns += patterns("", 
-    (r"^equipment/", include("infoserver.equipment.urls")))
+    (r"^equipment/", include("equipment.urls")))
 
 # Contrib apps
 urlpatterns += patterns("",

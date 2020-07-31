@@ -18,8 +18,8 @@ import csv
 import datetime, time
 import StringIO
 from optparse import OptionParser
-os.environ['DJANGO_SETTINGS_MODULE'] = "infoserver.settings"
-from infoserver.infobase.models import Scan, Person, ClassMeeting, SECTIONS
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
+from infobase.models import Scan, Person, ClassMeeting, SECTIONS
 
 
 def parse_iso8601(timestamp):

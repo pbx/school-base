@@ -6,8 +6,8 @@ from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render_to_response
 from django.views.decorators.cache import cache_page
-from infoserver.infobase.models import Course, ClassMeeting, Flag, Person, Room, Scan, phase_for_cohort_and_date
-from infoserver.infobase.models import SECTIONS, SECTION_CHOICES, STUDENT_KIND, FACULTY_KIND
+from infobase.models import Course, ClassMeeting, Flag, Person, Room, Scan, phase_for_cohort_and_date
+from infobase.models import SECTIONS, SECTION_CHOICES, STUDENT_KIND, FACULTY_KIND
 
 def _calendar_data(mode="report", date=None):
     today = datetime.date.today()
@@ -288,7 +288,7 @@ def _create_classmeetings(data, date):
 @login_required
 def schedule_builder(request, datestring):
     """
-    Interface for constructing schedules, replacing the old Excel -> CSV -> infoserver pipeline
+    Interface for constructing schedules, replacing the old Excel -> CSV -> pipeline
     """
     schedule_date = None
     if datestring:

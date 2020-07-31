@@ -10,10 +10,10 @@ import operator
 import os
 import sys
 from optparse import OptionParser
-os.environ['DJANGO_SETTINGS_MODULE'] = "infoserver.settings"
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
 from django.core.mail import send_mail
 from django.conf import settings
-from infoserver.infobase.models import Course, ClassMeeting, Scan, Person, SECTIONS, STUDENT_KIND
+from infobase.models import Course, ClassMeeting, Scan, Person, SECTIONS, STUDENT_KIND
 
 
 scan_window_length = datetime.timedelta(minutes=30)

@@ -5,8 +5,8 @@ import optparse
 import os
 import sys
 import time
-os.environ['DJANGO_SETTINGS_MODULE'] = "infoserver.settings"
-from infoserver.infobase.models import Vehicle, Person
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
+from infobase.models import Vehicle, Person
 
 class VehicleRow(object):
     """Abstraction to make handling CSVs a little cleaner"""

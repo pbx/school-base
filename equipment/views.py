@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import loader, Context
-from infoserver.equipment.models import ItemType, Item, ItemError, Penalty, Transaction, TransactionError
-from infoserver.infobase.models import Person, STUDENT_KIND, PHASE_END_DATES, phase_for_cohort_and_date
+from equipment.models import ItemType, Item, ItemError, Penalty, Transaction, TransactionError
+from infobase.models import Person, STUDENT_KIND, PHASE_END_DATES, phase_for_cohort_and_date
 
 
 def recent_transactions(person, number=6, hours=1, kind=None):

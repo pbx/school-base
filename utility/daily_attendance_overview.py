@@ -12,10 +12,10 @@ The output of this script is valid Markdown, in case that's useful.
 import os
 import datetime
 from optparse import OptionParser
-os.environ['DJANGO_SETTINGS_MODULE'] = "infoserver.settings"
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
 from django.core.mail import send_mail
 from django.conf import settings
-from infoserver.infobase.models import ClassMeeting
+from infobase.models import ClassMeeting
 
 
 def classmeeting_summary(classmeeting):

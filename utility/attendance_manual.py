@@ -8,10 +8,10 @@ import os
 import datetime
 import time
 from optparse import OptionParser, OptParseError
-os.environ['DJANGO_SETTINGS_MODULE'] = "infoserver.settings"
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
 from django.core.mail import send_mail
 from django.conf import settings
-from infoserver.infobase.models import Scan, Person, ClassMeeting, SECTIONS
+from infobase.models import Scan, Person, ClassMeeting, SECTIONS
 
 
 def classmeeting_report_markdown(c):

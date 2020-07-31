@@ -166,7 +166,7 @@ import datetime
 import time
 from django.db import models
 from django.db.models import Q
-from infoserver.infobase.models import Person, STUDENT_KIND
+from infobase.models import Person, STUDENT_KIND
 
 
 class ItemType(models.Model):

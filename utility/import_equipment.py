@@ -9,9 +9,9 @@ import csv
 import optparse
 import os
 import sys
-os.environ['DJANGO_SETTINGS_MODULE'] = "infoserver.settings"
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
 from django.db.models import Q
-from infoserver.equipment.models import Item, ItemType
+from equipment.models import Item, ItemType
 
 
 def read_data(options):

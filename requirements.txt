@@ -1,0 +1,2 @@
+# aka Django==0.97rc0, but you can't install it that way
+git+git://github.com/django/django.git@babfe78

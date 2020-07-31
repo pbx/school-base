@@ -9,8 +9,8 @@ import os
 import sys
 import time
 from optparse import OptionParser
-os.environ['DJANGO_SETTINGS_MODULE'] = "infoserver.settings"
-from infoserver.infobase.models import Scan
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
+from infobase.models import Scan
 
 
 if __name__ == '__main__':

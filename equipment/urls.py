@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns("infoserver.equipment.views",
+urlpatterns = patterns("equipment.views",
     (r"^checkout/(?:(?P<due_timestamp>\d{4}-\d{1,2}-\d{1,2}-\d{1,2}-\d{2})/)?(?:(?P<person_id>\d+)/)?", "check_out"),
     (r"^checkin/$", "check_in"),
     (r"^item/", "item"),

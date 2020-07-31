@@ -9,8 +9,8 @@ and exported to a CSV.
 import csv
 import optparse
 import os
-os.environ['DJANGO_SETTINGS_MODULE'] = "infoserver.settings"
-from infoserver.infobase.models import Person, STUDENT_KIND
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
+from infobase.models import Person, STUDENT_KIND
 
 
 class AddressRow(object):

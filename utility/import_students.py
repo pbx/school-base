@@ -9,9 +9,9 @@ import csv
 import optparse
 import os
 import sys
-os.environ['DJANGO_SETTINGS_MODULE'] = "infoserver.settings"
-from infoserver.infobase.models import Person
-from infoserver.infobase.models import PHASE_END_DATES
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
+from infobase.models import Person
+from infobase.models import PHASE_END_DATES
 
 
 def read_data(options):
