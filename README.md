@@ -12,4 +12,4 @@ The school had a lending library of photography equipment, which was managed thr
 
 To understand the code, read the doctests. I haven't worked on it in many years, I found them informative myself!
 
-_Note: This is a legacy system. Porting to modern Django shouldn't be too laborious, but if you want to try it out as-is you'll need [Django 0.97](https://github.com/django/django/tree/babfe78494028415b0e5f74ec2ca9b66506e8d34). Retro!_
+_Note: This is a legacy system that was actively developed from 2006 to 2010. Released as open source in 2016. Porting to modern Django shouldn't be too laborious, but if you want to try it out as-is, expect some rough edges. Uses [Django 0.97](https://github.com/django/django/tree/babfe78494028415b0e5f74ec2ca9b66506e8d34) &mdash; retro!_
